@@ -9,10 +9,12 @@ public class Village {
 	private Gaulois[] villageois;
 	private int nbVillageois = 0;
 
-	public Village(String nom, int nbVillageoisMaximum) {
-		this.nom = nom;
-		villageois = new Gaulois[nbVillageoisMaximum];
+	public Village(String nom, int nbVillageoisMaximum, int nbEtals) {
+	    this.nom = nom;
+	    villageois = new Gaulois[nbVillageoisMaximum];
+	    marche = new Marche(nbEtals);
 	}
+	
 
 	public String getNom() {
 		return nom;
@@ -105,7 +107,52 @@ public class Village {
 
 		    return etalsProduit;
 		}
-		
+		public Etal trouverVendeur(Gaulois gaulois) {
+		    for (int i = 0; i < etals.length; i++) {
+		        if (etals[i].getVendeur() == gaulois) {
+		            return etals[i];
+		        }
+		    }
+		    return null;
+		}
+		public String afficherMarche() {
+		    StringBuilder chaine = new StringBuilder();
+		    int nbEtalVide = 0;
+
+		    for (int i = 0; i < etals.length; i++) {
+		        if (etals[i].isEtalOccupe()) {
+		            chaine.append(etals[i].afficherEtal());
+		        } else {
+		            nbEtalVide++;
+		        }
+		    }
+
+		    if (nbEtalVide > 0) {
+		        chaine.append("Il reste " + nbEtalVide
+		                + " étals non utilisés dans le marché.\n");
+		    }
+
+		    return chaine.toString();
+		}
 		
 	}
-}
+	
+	private Marche marche;
+		public String installerVendeur(Gaulois vendeur, String produit, int nbProduit) {
+		    StringBuilder chaine = new StringBuilder();
+		    chaine.append(vendeur.getNom() + " cherche un endroit pour vendre "
+		            + nbProduit + " " + produit + ".\n");
+
+		    int indiceEtalLibre = marche.trouverEtalLibre();
+
+		    if (indiceEtalLibre != -1) {
+		        marche.utiliserEtal(indiceEtalLibre, vendeur, produit, nbProduit);
+		        chaine.append("Le vendeur " + vendeur.getNom() + " vend des "
+		                + produit + " à l'étal n°" + (indiceEtalLibre + 1) + ".\n");
+		    } else {
+		        chaine.append("Il n'y a plus d'étal disponible.\n");
+		    }
+
+		    return chaine.toString();
+		}
+	}

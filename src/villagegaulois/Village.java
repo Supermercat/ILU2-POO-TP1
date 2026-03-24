@@ -13,6 +13,7 @@ public class Village {
 	    this.nom = nom;
 	    villageois = new Gaulois[nbVillageoisMaximum];
 	    marche = new Marche(nbEtals);
+	    
 	}
 	
 
@@ -44,7 +45,7 @@ public class Village {
 		return null;
 	}
 
-	public String afficherVillageois() {
+	/*public String afficherVillageois() {
 		StringBuilder chaine = new StringBuilder();
 		if (nbVillageois < 1) {
 			chaine.append("Il n'y a encore aucun habitant au village du chef "
@@ -57,9 +58,26 @@ public class Village {
 			}
 		}
 		return chaine.toString();
-	}
+	}*/
 	
+	public String afficherVillageois() throws VillageSansChefException {
+	    if (chef == null) {
+	        throw new VillageSansChefException();
+	    }
 
+	    StringBuilder chaine = new StringBuilder();
+	    if (nbVillageois < 1) {
+	        chaine.append("Il n'y a encore aucun habitant au village du chef "
+	                + chef.getNom() + ".\n");
+	    } else {
+	        chaine.append("Au village du chef " + chef.getNom()
+	                + " vivent les légendaires gaulois :\n");
+	        for (int i = 0; i < nbVillageois; i++) {
+	            chaine.append("- " + villageois[i].getNom() + "\n");
+	        }
+	    }
+	    return chaine.toString();
+	}
 	
 	private class Marche {
 
@@ -198,3 +216,4 @@ public class Village {
 		    return chaine.toString();
 		}
 	}
+	

@@ -155,4 +155,46 @@ public class Village {
 
 		    return chaine.toString();
 		}
+		public String rechercherVendeursProduit(String produit) {
+		    StringBuilder chaine = new StringBuilder();
+		    Etal[] etalsProduit = marche.trouverEtals(produit);
+
+		    if (etalsProduit.length == 0) {
+		        chaine.append("Il n'y a pas de vendeur qui propose des "
+		                + produit + " au marché.\n");
+		    } else if (etalsProduit.length == 1) {
+		        chaine.append("Seul le vendeur "
+		                + etalsProduit[0].getVendeur().getNom()
+		                + " propose des " + produit + " au marché.\n");
+		    } else {
+		        chaine.append("Les vendeurs qui proposent des "
+		                + produit + " sont :\n");
+		        for (int i = 0; i < etalsProduit.length; i++) {
+		            chaine.append("- "
+		                    + etalsProduit[i].getVendeur().getNom() + "\n");
+		        }
+		    }
+
+		    return chaine.toString();
+		}
+		public Etal rechercherEtal(Gaulois vendeur) {
+		    return marche.trouverVendeur(vendeur);
+		}
+		public String partirVendeur(Gaulois vendeur) {
+		    StringBuilder chaine = new StringBuilder();
+		    Etal etal = marche.trouverVendeur(vendeur);
+
+		    if (etal != null) {
+		        chaine.append(etal.libererEtal());
+		    }
+
+		    return chaine.toString();
+		}
+		public String afficherMarche() {
+		    StringBuilder chaine = new StringBuilder();
+		    chaine.append("Le marché du village \"" + nom
+		            + "\" possède plusieurs étals :\n");
+		    chaine.append(marche.afficherMarche());
+		    return chaine.toString();
+		}
 	}

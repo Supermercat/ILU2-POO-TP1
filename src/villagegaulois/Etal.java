@@ -47,6 +47,8 @@ public class Etal {
 		return "L'étal est libre";
 	}
 
+	//TODO reprendre l enonce trouver et capturer 
+	//copie
 	public String libererEtal() {
 	    if (!etalOccupe) {
 	        throw new IllegalStateException();
@@ -74,6 +76,7 @@ public class Etal {
 	        e.printStackTrace();
 	        return "";
 	    }
+	 // la chaine doit etre declare avant try,
 
 	    if (quantiteAchetee < 1) {
 	        throw new IllegalArgumentException();
@@ -104,7 +107,7 @@ public class Etal {
 	    }
 
 	    return chaine.toString();
-	}
+	} 
 	
 	/*public String acheterProduit(int quantiteAcheter, Gaulois acheteur) {
 		if (etalOccupe) {

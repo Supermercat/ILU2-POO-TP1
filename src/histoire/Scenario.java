@@ -40,12 +40,47 @@ public class Scenario {
 		System.out.println(village.installerVendeur(druide, "fleurs", 10));
 
 		System.out.println(village.rechercherVendeursProduit("fleurs"));
-		Etal etalFleur = village.rechercherEtal(bonemine);
+		/*Etal etalFleur = village.rechercherEtal(bonemine);
 		System.out.println(etalFleur.acheterProduit(10, abraracourcix));
 		System.out.println(etalFleur.acheterProduit(15, obelix));
 		System.out.println(etalFleur.acheterProduit(15, assurancetourix));
 		System.out.println(village.partirVendeur(bonemine));
-		System.out.println(village.afficherMarche());
+		System.out.println(village.afficherMarche());*/
+		
+		Etal etalFleur = village.rechercherEtal(bonemine);
+
+		try {
+			System.out.println(etalFleur.acheterProduit(10, abraracourcix));
+		} catch (IllegalArgumentException e) {
+			System.out.println("Achat impossible : " + e.getMessage());
+		} catch (IllegalStateException e) {
+			System.out.println("État invalide : " + e.getMessage());
+		}
+
+		try {
+			System.out.println(etalFleur.acheterProduit(15, obelix));
+		} catch (IllegalArgumentException e) {
+			System.out.println("Achat impossible : " + e.getMessage());
+		} catch (IllegalStateException e) {
+			System.out.println("État invalide : " + e.getMessage());
+		}
+
+		try {
+			System.out.println(etalFleur.acheterProduit(15, assurancetourix));
+		} catch (IllegalArgumentException e) {
+			System.out.println("Achat impossible : " + e.getMessage());
+		} catch (IllegalStateException e) {
+			System.out.println("État invalide : " + e.getMessage());
+		}
+
+		try {
+			System.out.println(village.partirVendeur(bonemine));
+		} catch (IllegalArgumentException e) {
+			System.out.println("Action impossible : " + e.getMessage());
+		} catch (IllegalStateException e) {
+			System.out.println("État invalide : " + e.getMessage());
+		}
+		
 	}
 
 }

@@ -47,7 +47,7 @@ public class Etal {
 		return "L'étal est libre";
 	}
 
-	//TODO reprendre l enonce trouver et capturer 
+	/*//TODO reprendre l enonce trouver et capturer 
 	//copie
 	public String libererEtal() {
 	    if (!etalOccupe) {
@@ -107,7 +107,62 @@ public class Etal {
 	    }
 
 	    return chaine.toString();
-	} 
+	} 10 avril*/ 
+	public String libererEtal() {
+	    if (!etalOccupe) {
+	        throw new IllegalStateException("L'étal est déjà libre.");
+	    }
+
+	    String chaine = "Le vendeur " + vendeur.getNom()
+	            + " quitte son étal, il a vendu "
+	            + (quantiteDebutMarche - quantite) + " " + produit
+	            + " parmi les " + quantiteDebutMarche
+	            + " qu'il voulait vendre.\n";
+
+	    vendeur = null;
+	    produit = null;
+	    quantite = 0;
+	    quantiteDebutMarche = 0;
+	    etalOccupe = false;
+
+	    return chaine;
+	}
+	
+	public String acheterProduit(int quantiteAchetee, Gaulois acheteur) {
+	    if (acheteur == null) {
+	        throw new IllegalArgumentException("L'acheteur ne peut pas être null.");
+	    }
+
+	    if (quantiteAchetee < 1) {
+	        throw new IllegalArgumentException("La quantité achetée doit être supérieure à 0.");
+	    }
+
+	    if (!etalOccupe) {
+	        throw new IllegalStateException("L'étal est libre.");
+	    }
+
+	    StringBuilder chaine = new StringBuilder();
+
+	    chaine.append(acheteur.getNom() + " veut acheter "
+	            + quantiteAchetee + " " + produit + " à "
+	            + vendeur.getNom());
+
+	    if (quantite == 0) {
+	        chaine.append(", malheureusement il n'y en a plus !\n");
+	    } else if (quantiteAchetee <= quantite) {
+	        quantite -= quantiteAchetee;
+	        chaine.append(". " + acheteur.getNom()
+	                + " est ravi de tout trouver sur l'étal de "
+	                + vendeur.getNom() + ".\n");
+	    } else {
+	        chaine.append(", comme il n'y en a plus que " + quantite
+	                + ", " + acheteur.getNom()
+	                + " vide l'étal de " + vendeur.getNom() + ".\n");
+	        quantite = 0;
+	    }
+
+	    return chaine.toString();
+	}
 	
 	/*public String acheterProduit(int quantiteAcheter, Gaulois acheteur) {
 		if (etalOccupe) {

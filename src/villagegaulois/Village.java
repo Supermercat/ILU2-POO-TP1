@@ -73,7 +73,7 @@ public class Village {
 	}
 
 	//TODO appliquer les bonnes pratiques clqsse imterne
-	private class Marche {
+	private static class Marche {
 
 		private Etal[] etals;
 
